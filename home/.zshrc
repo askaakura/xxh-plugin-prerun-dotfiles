@@ -59,10 +59,16 @@ fi
 
 if [[ -n "$XXH_HOME" ]]; then
     mkdir -p $HOME_REAL/.config
-    # Link Neovim
+    [ ! -L "$HOME_REAL/.config/atuin" ] && ln -s "$HOME/.config/atuin" "$HOME_REAL/.config/atuin" 2>/dev/null
+    [ ! -L "$HOME_REAL/.config/httpie" ] && ln -s "$HOME/.config/httpie" "$HOME_REAL/.config/httpie" 2>/dev/null
     [ ! -L "$HOME_REAL/.config/nvim" ] && ln -s "$HOME/.config/nvim" "$HOME_REAL/.config/nvim" 2>/dev/null
-    # Link Yazi
     [ ! -L "$HOME_REAL/.config/yazi" ] && ln -s "$HOME/.config/yazi" "$HOME_REAL/.config/yazi" 2>/dev/null
+    [ ! -L "$HOME_REAL/.config/starship.toml" ] && ln -s "$HOME/.config/starship.toml" "$HOME_REAL/.config/starship.toml" 2>/dev/null
+fi
+
+if [[ ! -f "$HOME_REAL/.vimrc" ]]
+then
+    ln -s "$HOME/.vimrc" "$HOME_REAL/.vimrc" 2>/dev/null
 fi
 
 zstyle ':omz:plugins:alias-finder' autoload yes
