@@ -2,7 +2,8 @@ export PATH="$HOME/.local/bin:$HOME/bin:/usr/local/bin:$PATH"
 
 export ZSH="$HOME/.oh-my-zsh"
 
-ZSH_THEME="amuse"
+# fallback theme
+ZSH_THEME="amuse" 
 
 plugins=(
     alias-finder
@@ -11,11 +12,13 @@ plugins=(
     colorize
     docker
     git
+    safe-paste
 )
 
 source "$ZSH/oh-my-zsh.sh"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 eval "$(fzf --zsh)"
+
 export FZF_DEFAULT_COMMAND='fd --type f'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
@@ -24,10 +27,10 @@ if command -v atuin &> /dev/null; then
 fi
 
 eval "$(zoxide init zsh)"
-
 eval "$(starship init zsh)"
 
 export MANPAGER="bat -plman"
+export EDITOR="nvim"
 
 alias k="kubectl"
 alias j='jq -C'
@@ -41,6 +44,13 @@ help() {
     "$@" --help 2>&1 | bathelp
 }
 
+if command -v eza &> /dev/null; then
+    alias ls='eza --icons --group-directories-first'
+    alias ll='eza -lh --icons --group-directories-first'
+    alias la='eza -a --icons --group-directories-first'
+    alias tree='eza --tree --icons'
+fi
+
 function y() {
     local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
     yazi "$@" --cwd-file="$tmp"
@@ -50,20 +60,19 @@ function y() {
     rm -f -- "$tmp"
 }
 
-if command -v eza &> /dev/null; then
-    alias ls='eza --icons --group-directories-first'
-    alias ll='eza -lh --icons --group-directories-first'
-    alias la='eza -a --icons --group-directories-first'
-    alias tree='eza --tree --icons'
-fi
-
 if [[ -n "$XXH_HOME" ]]; then
     mkdir -p $HOME_REAL/.config
     [ ! -L "$HOME_REAL/.config/atuin" ] && ln -s "$HOME/.config/atuin" "$HOME_REAL/.config/atuin" 2>/dev/null
+    [ ! -L "$HOME_REAL/.config/bat" ] && ln -s "$HOME/.config/bat" "$HOME_REAL/.config/bat" 2>/dev/null
     [ ! -L "$HOME_REAL/.config/httpie" ] && ln -s "$HOME/.config/httpie" "$HOME_REAL/.config/httpie" 2>/dev/null
     [ ! -L "$HOME_REAL/.config/nvim" ] && ln -s "$HOME/.config/nvim" "$HOME_REAL/.config/nvim" 2>/dev/null
-    [ ! -L "$HOME_REAL/.config/yazi" ] && ln -s "$HOME/.config/yazi" "$HOME_REAL/.config/yazi" 2>/dev/null
     [ ! -L "$HOME_REAL/.config/starship.toml" ] && ln -s "$HOME/.config/starship.toml" "$HOME_REAL/.config/starship.toml" 2>/dev/null
+    [ ! -L "$HOME_REAL/.config/yazi" ] && ln -s "$HOME/.config/yazi" "$HOME_REAL/.config/yazi" 2>/dev/null
+fi
+
+if [[ ! -f "$HOME_REAL/.gitconfig" ]]
+then
+    ln -s "$HOME/.gitconfig" "$HOME_REAL/.gitconfig" 2>/dev/null
 fi
 
 if [[ ! -f "$HOME_REAL/.vimrc" ]]
