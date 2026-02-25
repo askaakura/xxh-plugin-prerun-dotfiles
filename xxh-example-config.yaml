@@ -1,0 +1,16 @@
+hosts:
+  ".*":
+    shell: zsh
+    plugins:
+      - https://github.com/YOUR_USERNAME/xxh-plugin-prerun-dotfiles
+      - xxh-plugin-zsh-ohmyzsh
+      - xxh-plugin-zsh-zshrc
+      - xxh-plugin-zsh-autosuggestions
+      - xxh-plugin-zsh-syntax-highlighting
+      - xxh-plugin-prerun-starship
+      - xxh-plugin-prerun-zoxide
+      - xxh-plugin-prerun-cli-tools
+    env:
+      # Added atuin and httpie (called 'httpie' in the xi manager)
+      - XI_TOOLS: "fzf,jq,rg,bat,yazi,eza,atuin,httpie"
+      - XXH_HOME: "$HOME"

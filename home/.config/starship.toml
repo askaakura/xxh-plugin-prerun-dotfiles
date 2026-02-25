@@ -1,0 +1,100 @@
+"$schema" = 'https://starship.rs/configSchema.json'
+
+add_newline = true
+right_format = "$time"
+
+[aws]
+disabled = false
+
+[gcloud]
+disabled = false
+
+[shell]
+disabled = false
+bash_indicator = ""
+
+[os]
+disabled = false
+format = "$symbol "
+symbols.Ubuntu = ""
+
+[battery]
+full_symbol = '🔋'
+charging_symbol = '⚡️'
+discharging_symbol = '💀'
+unknown_symbol = '?'
+
+[[battery.display]]
+threshold = 10
+style = 'bold red'
+
+[character]
+error_symbol = "[✗](bold red)"
+vimcmd_symbol = "[<](bold green)"
+
+[cmd_duration]
+min_time = 500
+format = 'took [$duration](bold yellow)'
+
+[container]
+format = '[$symbol [$name]]($style) '
+
+[directory]
+truncation_length = 3
+truncation_symbol = ".../"
+read_only = "🔒"
+read_only_style = "red"
+
+[fossil_branch]
+symbol = '🦎'
+truncation_length = 4
+truncation_symbol = ''
+
+[fossil_metrics]
+added_style = "bold blue"
+format = "[+$added]($added_style)/[-$deleted]($deleted_style)"
+
+[git_status]
+ahead = '🏃🏃'
+behind = '🐌🐌'
+conflicted = '🚩'
+deleted = '🗑️'
+diverged = '😵'
+modified = "[!](#ede100)"
+renamed = '🤡'
+staged = '[++($count)](green)'
+stashed = "[$](bright orange)"
+untracked = "😕"
+up_to_date = '✅'
+
+[git_state]
+format = '[$state( $progress_current of $progress_total)]($style) '
+cherry_pick = '[🍒 PICKING](bold red)'
+rebase = '[🔨 REBASING](bold green)'
+merge = '[🪢 MERGING](bold green)'
+
+[git_metrics]
+added_style = "bold green"
+deleted_style = "bold red"
+format = "([+$added]($added_style) )/([-$deleted]($deleted_style) )"
+
+[kubernetes]
+format = 'on [☸️ ($user on )($cluster in )$context ($namespace)](dimmed green) '
+disabled = false
+contexts = [
+  { context_pattern = "dev.local cluster.k8s", style = "green", symbol = "💔 " },
+]
+detect_files = ['k8s']
+
+[package]
+disabled = false
+
+[sudo]
+style = 'bold green'
+symbol = '🪖'
+disabled = false
+
+[time]
+disabled = false
+time_format = '%I:%M:%S %p'
+format = '[$time](bold yellow)'
